@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration</title>
+    <style>
+        body {
+            background-color: #d4edda; /* light green */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 3px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+            width: 350px;
+            height: auto;
+        }
+        h2 {
+            text-align: center;
+            color: #155724; /* dark green text */
+        }
+        .form-container input, 
+        .form-container select {
+            width: 50%;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            height: 25px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            width: 100%;
+            background-color: #155724; /* dark green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background-color: #0b3d1f;
+        }
+        .errorlist {
+            color: red;
+            margin: 0 0 10px 0;
+            list-style: none;
+            padding-left: 0;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ message }}
+            {% for field in form %}
+                <div>
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </p>
+    </div>
+</body>
+</html>
