@@ -127,3 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
 AUTH_USER_MODEL = 'registration.UserRequirement'
 LOGIN_URL = 'login'
+
+AUTHENTICATION_BACKENDS = [
+    'registration.authentication_backends.RegNumberBackend',  # Your custom backend
+    'django.contrib.auth.backends.ModelBackend',  # Keep default as fallback
+]

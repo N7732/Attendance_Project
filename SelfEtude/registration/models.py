@@ -6,7 +6,7 @@ from phonenumber_field.validators import validate_international_phonenumber
 
 # Create your models here.
 class UserRequirement(AbstractUser):
-    Reg_Number = models.CharField(max_length= 9, unique=True, null=False,blank=False)
+    Reg_Number = models.CharField(max_length= 9, primary_key=True, unique=True, null=False, blank=False)
     phone_number = PhoneNumberField(region='RW', unique=True, null=False, blank=False)
     USERNAME_FIELD = 'Reg_Number'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'phone_number']
@@ -15,12 +15,14 @@ class UserRequirement(AbstractUser):
                  ('Software Engineering', 'SE'),
                  ('Data Science', 'DS'),
                  ('Information Systems', 'IS')}
+    
     department = models.CharField(max_length=50, choices=Department, null=False, blank=False)
     Level = {('Level 1', 'L1'),
              ('Level 2', 'L2'),
              ('Level 3', 'L3'),
              ('Level 4', 'L4')}
-    level = models.CharField(max_length=20, choices=Level, null=False, blank=False)
+    
+    level = models.CharField(max_length=20, choices=Level,null=False, blank=False)
 
     groups = models.ManyToManyField(
         'auth.Group',

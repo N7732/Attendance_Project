@@ -18,20 +18,20 @@ def RegisterView(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Registration successful.")
-            print("User registered successfully.")
         return redirect('login')
     else:
         form = FormR()
-
     return render(request, 'Registration/registration.html', {'form': form})
 
 def LoginView(request):
     if request.method == 'POST':
         form = StudentLoginForm(request.POST)
         if form.is_valid():
+            
             Regnumber = form.cleaned_data['Reg_Number']
             password = form.cleaned_data['password']
             user = authenticate(request, regnumber=Regnumber, password=password)
+
             if user is not None:
                 login(request, user)
                 return redirect('home')
@@ -39,7 +39,6 @@ def LoginView(request):
                 form.add_error(None, "Invalid registration number or password.")
         else:
             return HttpResponse("Form is not valid.")
-        
     else:
         form = StudentLoginForm()
     return render(request, 'Registration/login.html', {'form': form})
